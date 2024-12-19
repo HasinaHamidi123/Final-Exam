@@ -1,0 +1,50 @@
+/* src/App.css */
+.App {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #4CAF50;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+h3 {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+p {
+    font-size: 1em;
+    color: #555;
+}
+
+/* Add some styling for TodoComponent if needed */
+.todo-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.todo-container h3 {
+    color: #333;
+}
+
+.todo-container p {
+    font-size: 1em;
+    color: #666;
+}

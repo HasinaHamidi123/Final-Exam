@@ -1,0 +1,96 @@
+// src/App.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './App.css';  // Import the CSS for styling
+
+// TodoComponent for displaying all todos
+const TodoComponent = () => {
+    const [todos, setTodos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Fetch all todos when the component mounts
+    useEffect(() => {
+        axios
+            .get('https://jsonplaceholder.typicode.com/todos')
+            .then((response) => {
+                setTodos(response.data); // Set todos data when received
+                setLoading(false); // Set loading to false once data is fetched
+            })
+            .catch((error) => {
+                setError('Error fetching todos'); // Set error message if fetch fails
+                setLoading(false); // Set loading to false even if there’s an error
+            });
+    }, []); // Empty array ensures it runs only once when the component mounts
+
+    if (loading) {
+        return <div>Loading Todos...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    return (
+        <div className="todo-container">
+            <h1>All Todos</h1>
+            <ul>
+                {todos.map((todo) => (
+                    <li key={todo.id}>
+                        <h3>{todo.title}</h3>
+                        <p>{todo.completed ? 'Completed' : 'Not Completed'}</p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+function App() {
+    // State to store posts, loading status, and errors
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Fetch posts from the JSONPlaceholder API when the component mounts
+    useEffect(() => {
+        axios
+            .get('https://jsonplaceholder.typicode.com/posts')
+            .then((response) => {
+                setPosts(response.data); // Update posts state
+                setLoading(false); // Set loading to false after data fetch
+            })
+            .catch((error) => {
+                setError('Error fetching data'); // Set error message if fetch fails
+                setLoading(false); // Set loading to false even in case of an error
+            });
+    }, []); // This effect runs only once on component mount
+
+    // If data is being fetched, show loading message
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    // If there’s an error fetching data, show error message
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    // Render posts and todos
+    return (
+        <div className="App">
+            <h1>Posts from JSONPlaceholder</h1>
+            <ul>
+                {posts.map((post) => (
+                    <li key={post.id}>
+                        <h3>{post.title}</h3>
+                        <p>{post.body}</p>
+                    </li>
+                ))}
+            </ul>
+            <TodoComponent /> {/* Render the TodoComponent to show all todos */}
+        </div>
+    );
+}
+
+export default App;
